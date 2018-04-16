@@ -1,6 +1,7 @@
 # Set up the working directories.
-LIP_FOLDER="/home/liyongbin/LIP"
-WORK_DIR="/home/liyongbin/models/research/deeplab"
+HOME_DIR="/home/liyongbin/"
+LIP_FOLDER="${HOME_DIR}/LIP"
+WORK_DIR="${HOME_DIR}/models/research/deeplab"
 DATASET="LIP"
 
 set -e
