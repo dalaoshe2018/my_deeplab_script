@@ -181,16 +181,19 @@ class DataSetClothes(DataSet):
 
 
 def main(unused_argv):
+    HOME_DIR = "/home/liyongbin/"
+    HOME_IMG_DIR = "/home/liyongbin/"
     MODEL_DIR = \
-            "/home/liyongbin/models/research/deeplab/LIP/train"
+            os.path.join(HOME_DIR,"models/research/deeplab/LIP/train")
     PB_DIR = \
-        "/home/liyongbin/models/research/deeplab/LIP/export/frozen_inference_graph.pb"
-    annotation_path = \
-            "/home/liyongbin/Mask_RCNN_BBox/train.csv"
-    image_dir = \
-            "/home/liyongbin/Mask_RCNN_BBox/"
+        os.path.join(HOME_DIR,"models/research/deeplab/LIP/export/frozen_inference_graph.pb"
     save_res_dir = \
-            "/home/liyongbin/tmp_2"
+            os.path.join(HOME_DIR,"tmp_2")
+
+    annotation_path = \
+            os.path.join(HOME_IMG_DIR,"Mask_RCNN_BBox/train.csv")
+    image_dir = \
+            os.path.join(HOME_IMG_DIR,"Mask_RCNN_BBox/")
 
     model = DeeplabLIPModel()
     model.load_from_fpb_to_detect(pb_path=PB_DIR)
