@@ -176,17 +176,18 @@ class DataSetClothes(DataSet):
 
     def get_next_raw_image(self):
         image_filename = self.image_pathes[self.index]
-        img = self.resize_image(Image.open(image_filename), True)
+        #img = self.resize_image(Image.open(image_filename), True)
+        img = np.array(Image.open(image_filename))
         self.index += 1
-        return np.array([img])
+        return img
 
+HOME_DIR = "/home/liyongbin/"
+HOME_IMG_DIR = "/home/liyongbin/Mask_RCNN_BBox"
 MODEL_FOLDER = "models/research/deeplab/CLOTHES/train"
 MODEL_PB_FOLDER_PATH = \
 "models/research/deeplab/CLOTHES/export/frozen_inference_graph.pb"
 
 def main(unused_argv):
-    HOME_DIR = "/home/liyongbin/"
-    HOME_IMG_DIR = "/home/liyongbin/"
     MODEL_DIR = \
             os.path.join(HOME_DIR, MODEL_FOLDER)
     PB_DIR = \
@@ -196,17 +197,19 @@ def main(unused_argv):
             os.path.join(HOME_DIR,"tmp_2")
 
     annotation_path = \
-        os.path.join(HOME_IMG_DIR,"Mask_RCNN_BBox/train.csv")
+        os.path.join(HOME_IMG_DIR,"train.csv")
     image_dir = \
-        os.path.join(HOME_IMG_DIR,"Mask_RCNN_BBox/")
-
+        os.path.join(HOME_IMG_DIR,"")
+    
+    # Init
     model = DeeplabLIPModel()
-    model.load_from_fpb_to_detect(pb_path=PB_DIR)
-
+    # Load Model Paramter And Set GPU To Run
+    model.load_from_fpb_to_detect(pb_path=PB_DIR, visible_gpu_devices="0")
+    # Init Dataset
     dataset_test = DataSetClothes(
             dataset_file="",
             mode="inference")
-
+    # Prepare Dataset
     dataset_test.prepare_image(
             annotation_path=annotation_path,
             image_dir=image_dir,

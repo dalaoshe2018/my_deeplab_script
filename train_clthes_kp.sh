@@ -46,6 +46,8 @@ python3.5 "${WORK_DIR}"/train.py \
   --train_crop_size=520 \
   --train_crop_size=520 \
   --train_batch_size=4 \
+  --num_replicas=1 \
+  --num_clones=2 \
   --training_number_of_steps="${NUM_ITERATIONS}" \
   --fine_tune_batch_norm=true \
   --tf_initial_checkpoint="${INIT_FOLDER}/model.ckpt" \
