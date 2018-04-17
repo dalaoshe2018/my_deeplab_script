@@ -6,6 +6,7 @@ import tensorflow as tf
 from matplotlib import gridspec
 from matplotlib import pyplot as plt
 from dataset import *
+import os
 
 
 LABEL_NAMES = np.asarray([
@@ -179,16 +180,20 @@ class DataSetClothes(DataSet):
         self.index += 1
         return np.array([img])
 
+MODEL_FOLDER = "models/research/deeplab/CLOTHES/train"
+MODEL_PB_FOLDER_PATH = \
+"models/research/deeplab/CLOTHES/export/frozen_inference_graph.pb"
 
 def main(unused_argv):
     HOME_DIR = "/home/liyongbin/"
     HOME_IMG_DIR = "/home/liyongbin/"
     MODEL_DIR = \
-            os.path.join(HOME_DIR,"models/research/deeplab/LIP/train")
+            os.path.join(HOME_DIR, MODEL_FOLDER)
     PB_DIR = \
-        os.path.join(HOME_DIR,"models/research/deeplab/LIP/export/frozen_inference_graph.pb"
+            os.path.join(HOME_DIR, MODEL_PB_FOLDER_PATH)
+
     save_res_dir = \
-        os.path.join(HOME_DIR,"tmp_2")
+            os.path.join(HOME_DIR,"tmp_2")
 
     annotation_path = \
         os.path.join(HOME_IMG_DIR,"Mask_RCNN_BBox/train.csv")
@@ -205,7 +210,7 @@ def main(unused_argv):
     dataset_test.prepare_image(
             annotation_path=annotation_path,
             image_dir=image_dir,
-            max_datasize=None
+            max_datasize=100
             )
 
     res = model.detect_img(dataset_test)
